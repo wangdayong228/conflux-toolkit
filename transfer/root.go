@@ -85,7 +85,8 @@ func doTransfers(cmd *cobra.Command, args []string) {
 			continue
 		}
 
-		if types.NormalAddress != v.Address.GetAddressType() {
+		addressType, e := v.Address.GetAddressType()
+		if types.NormalAddress != addressType {
 			if failCount == 0 {
 				warnFs.WriteString("=======invalid addresses==========\n")
 			}

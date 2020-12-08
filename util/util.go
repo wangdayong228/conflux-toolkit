@@ -1,6 +1,8 @@
 package util
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"math/big"
 	"os"
@@ -67,4 +69,18 @@ func OsExit(format string, a ...interface{}) {
 	fmt.Printf(format, a...)
 	fmt.Println()
 	os.Exit(1)
+}
+
+// JSONFmt format json string with indent
+func JSONFmt(jsonStr []byte) string {
+	var str bytes.Buffer
+	_ = json.Indent(&str, jsonStr, "", "    ")
+	return str.String()
+}
+
+// JSONMarshalAndFmt marshal v to json and format it
+func JSONMarshalAndFmt(v interface{}) string {
+	j, e := json.Marshal(v)
+	OsExitIfErr(e, "marshal %v to json error", v)
+	return JSONFmt(j)
 }

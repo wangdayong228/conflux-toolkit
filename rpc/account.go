@@ -47,9 +47,11 @@ func prettyPrintAccount(info types.AccountInfo) {
 	m.Put("admin", info.Admin)
 
 	content, err := m.ToJSON()
+
 	if err != nil {
 		fmt.Println("Failed to marshal data to JSON:", err.Error())
 	} else {
-		fmt.Println(string(content))
+		str := util.JSONFmt(content)
+		fmt.Println(string(str))
 	}
 }
